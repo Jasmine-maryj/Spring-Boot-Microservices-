@@ -12,12 +12,12 @@ spring:
       routes:
         - id: product-service
           predicates:
-            - Path=/api/product
+            - Path=/api/products
           uri: lb://product-service
 
         - id: order-service
           predicates:
-            - Path=/api/order
+            - Path=/api/orders
           uri: lb://order-service
 
         - id: inventory-service
