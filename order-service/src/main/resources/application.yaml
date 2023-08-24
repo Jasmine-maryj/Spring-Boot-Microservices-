@@ -11,3 +11,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: update
+
+  application:
+    name: ORDER-SERVICE
+
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://eureka:password@localhost:8761/eureka

@@ -1,0 +1,43 @@
+server:
+  port: 8181
+
+
+
+spring:
+  application:
+    name: API-GATEWAY
+
+  cloud:
+    gateway:
+      routes:
+        - id: product-service
+          predicates:
+            - Path=/api/product
+          uri: lb://product-service
+
+        - id: order-service
+          predicates:
+            - Path=/api/order
+          uri: lb://order-service
+
+        - id: inventory-service
+          predicates:
+            - Path=/api/inventory
+          uri: lb://inventory-service
+
+        - id: discovery-server
+          predicates:
+            - Path=/eureka/web                   '
+          uri: http://localhost:8076/eureka
+
+
+app:
+  eureka:
+    server: localhost
+
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+
