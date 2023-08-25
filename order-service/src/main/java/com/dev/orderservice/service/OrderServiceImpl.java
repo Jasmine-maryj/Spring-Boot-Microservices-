@@ -23,7 +23,7 @@ import java.util.*;
 @Slf4j
 public class OrderServiceImpl implements OrderService{
 
-    private static final String INVENTORY_SERVICE = "http://inventory-service/api/inventory";
+    private static final String INVENTORY_SERVICE = "http://localhost:8084/api/v1/inventory";
     private static final String ORDER_STATUS = "orderStatus";
 
     @Autowired
