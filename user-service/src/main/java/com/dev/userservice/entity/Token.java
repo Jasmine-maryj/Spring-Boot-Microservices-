@@ -1,6 +1,6 @@
 package com.dev.userservice.entity;
 
-import com.dev.userservice.exceptionhandler.UserNotFoundException;
+import com.dev.userservice.filters.exceptionhandler.UserNotFoundException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.persistence.*;

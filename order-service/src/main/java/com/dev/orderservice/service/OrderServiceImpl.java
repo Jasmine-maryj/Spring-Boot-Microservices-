@@ -60,6 +60,8 @@ public class OrderServiceImpl implements OrderService{
                     .bodyToMono(InventoryResponse[].class)
                     .block();
 
+//            log.info("couldn't access inventory service");
+
             assert inventoryResponseArray != null;
 
             List<Integer> requiredArr = orderDto.getOrderItemsList().stream().map(OrderItems::getQuantity).toList();

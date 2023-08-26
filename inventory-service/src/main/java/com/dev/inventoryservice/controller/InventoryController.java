@@ -4,6 +4,7 @@ import com.dev.inventoryservice.dto.InventoryResponse;
 import com.dev.inventoryservice.dto.ProductDto;
 import com.dev.inventoryservice.dto.UpdateInventoryQuantityDto;
 import com.dev.inventoryservice.service.InventoryService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

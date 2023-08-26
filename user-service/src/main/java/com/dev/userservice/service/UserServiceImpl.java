@@ -5,7 +5,7 @@ import com.dev.userservice.entity.Token;
 import com.dev.userservice.dto.UserDto;
 import com.dev.userservice.dto.UserLoginDto;
 import com.dev.userservice.entity.User;
-import com.dev.userservice.exceptionhandler.UserNotFoundException;
+import com.dev.userservice.filters.exceptionhandler.UserNotFoundException;
 import com.dev.userservice.repository.PasswordTokenRepository;
 import com.dev.userservice.repository.TokenRepository;
 import com.dev.userservice.repository.UserRepository;

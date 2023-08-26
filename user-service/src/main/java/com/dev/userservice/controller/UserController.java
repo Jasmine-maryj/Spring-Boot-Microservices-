@@ -7,7 +7,7 @@ import com.dev.userservice.dto.UserLoginDto;
 import com.dev.userservice.entity.Token;
 import com.dev.userservice.entity.User;
 import com.dev.userservice.events.UserRegisterEvent;
-import com.dev.userservice.exceptionhandler.UserNotFoundException;
+import com.dev.userservice.filters.exceptionhandler.UserNotFoundException;
 import com.dev.userservice.mappers.Converter;
 import com.dev.userservice.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +27,7 @@ import java.util.Map;
 @RequestMapping("api/v1/users")
 @Slf4j
 public class UserController {
+    private static final String MESSAGE = "message";
 
     @Autowired
     private UserService userService;
@@ -41,7 +42,7 @@ public class UserController {
         User user = userService.registerUser(userDto);
         applicationEventPublisher.publishEvent(new UserRegisterEvent(user, applicationUrl(request)));
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Registered Successfully, Verification link sent, Verify your email address to login");
+        map.put(MESSAGE, "Registered Successfully, Verification link sent, Verify your email address to login");
         return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
 
@@ -51,19 +52,13 @@ public class UserController {
         String result = userService.validateUserEmail(token);
         Map<String, String> map = new HashMap<>();
         if(result.equalsIgnoreCase("valid")){
-            map.put("message", result);
+            map.put(MESSAGE, result);
         }else {
-            map.put("message", "Bad Request");
+            map.put(MESSAGE, "Bad Request");
         }
         return ResponseEntity.ok(map);
     }
 
-    /**
-     * /
-     * @param oldToken
-     * @param request
-     * its working
-     */
     @GetMapping("/resendVerification")
     public void resendVerificationToken(@RequestParam("token") String oldToken, HttpServletRequest request){
         Token token = userService.findByToken(oldToken);
@@ -81,7 +76,7 @@ public class UserController {
             url = sendPasswordResetLinkToEmail(applicationUrl(request), passwordVerificationToken);
 
         }
-        map.put("message", "reset password link has been sent to your email");
+        map.put(MESSAGE, "reset password link has been sent to your email");
         return ResponseEntity.ok(map);
     }
 
@@ -92,18 +87,18 @@ public class UserController {
 
 
         if(!result.equalsIgnoreCase("valid")){
-            map.put("message", result);
+            map.put(MESSAGE, result);
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
 
         User user = userService.getUserByPasswordResetToken(token);
         if (user != null){
             userService.changePassword(user, passwordResetDTO.getNewPassword());
-            map.put("message", "Password changed successfully");
+            map.put(MESSAGE, "Password changed successfully");
             return ResponseEntity.ok(map);
         }
 
-        map.put("message", "Invalid Token");
+        map.put(MESSAGE, "Invalid Token");
         return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
     }
 
@@ -112,7 +107,7 @@ public class UserController {
         User user = userService.findUserByEmailAndPassword(changePasswordDTO.getEmail(), changePasswordDTO.getOldPassword());
         userService.changePassword(user, changePasswordDTO.getNewPassword());
         Map<String, String> map = new HashMap<>();
-        map.put("message", "Password Changed Successfully!");
+        map.put(MESSAGE, "Password Changed Successfully!");
         return ResponseEntity.ok(map);
     }
 
@@ -160,7 +155,7 @@ public class UserController {
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable("id") Long id){
         userService.deleteUser(id);
         Map<String, String> map = new HashMap<>();
-        map.put("message", "success");
+        map.put(MESSAGE, "success");
         return ResponseEntity.ok(map);
     }
 

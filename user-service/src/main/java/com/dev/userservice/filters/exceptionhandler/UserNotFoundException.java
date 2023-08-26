@@ -1,4 +1,4 @@
-package com.dev.userservice.exceptionhandler;
+package com.dev.userservice.filters.exceptionhandler;
 
 public class UserNotFoundException extends RuntimeException{
     public UserNotFoundException(String message){
