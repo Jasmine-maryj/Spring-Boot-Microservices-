@@ -36,6 +36,15 @@ spring:
           predicates:
             - Path=/eureka/**
 
+management:
+  zipkin:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans
+
+  tracing:
+    sample:
+      probability: 1.0
+
 
 app:
   eureka:
@@ -46,4 +55,6 @@ eureka:
   client:
     service-url:
       default-zone: http://localhost:8761/eureka/
+
+
 
