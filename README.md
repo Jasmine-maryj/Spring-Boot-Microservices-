@@ -64,6 +64,6 @@ Make sure you have Java and Maven installed on your system.
 
 ## Usage
 
-- Access the services through the API Gateway at `http://localhost:api-gateway-port/api/{service-name}`.
+- Access the services through the API Gateway at `http://localhost:8080/api/v1/{service-name}`.
 - Use the Eureka dashboard to monitor registered services at `http://localhost:8761/eureka`.
 
